@@ -16,6 +16,7 @@ package loadtester
 
 import (
 	"fmt"
+	"runtime/debug"
 	"sync"
 	"time"
 
@@ -379,7 +380,7 @@ func (t *LoadTester) consumeTrack(track *webrtc.TrackRemote, pub *lksdk.RemoteTr
 
 	defer func() {
 		if e := recover(); e != nil {
-			fmt.Println("caught panic in consumeTrack", e)
+			fmt.Printf("caught panic in consumeTrack, panic: %v, stacktrace: %s\n", e, debug.Stack())
 		}
 	}()
 
